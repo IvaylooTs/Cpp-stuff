@@ -1,0 +1,16 @@
+# ninja log v5
+1	281	7507048703467602	CMakeFiles/MyStuff.dir/ThinkingInC++/1-1.cpp.obj	e4e6c30f8cdd2d2c
+1	795	7507047836414810	CMakeFiles/MyStuff.dir/1-1.cpp.obj	b2926c56aa8b1415
+2	291	7494042458159585	CMakeFiles/MyStuff.dir/main.cpp.obj	8dfe45dc0116a0f3
+2	102	7507049416294760	MyStuff.exe	c5cdce59a9f0f266
+0	163	7507049455562715	build.ninja	47d13c9980366f76
+1	287	7507051988354131	CMakeFiles/MyStuff.dir/ThinkingInC++/1-1.cpp.obj	e4e6c30f8cdd2d2c
+287	396	7507051989417055	MyStuff.exe	c5cdce59a9f0f266
+1	293	7507052463802308	CMakeFiles/MyStuff.dir/ThinkingInC++/1-1.cpp.obj	e4e6c30f8cdd2d2c
+294	404	7507052464865469	MyStuff.exe	c5cdce59a9f0f266
+1	306	7507057316778342	CMakeFiles/MyStuff.dir/ThinkingInC++/1-1.cpp.obj	e4e6c30f8cdd2d2c
+307	412	7507057317797255	MyStuff.exe	c5cdce59a9f0f266
+1	301	7507057884639406	CMakeFiles/MyStuff.dir/ThinkingInC++/1-1.cpp.obj	e4e6c30f8cdd2d2c
+302	412	7507057885710511	MyStuff.exe	c5cdce59a9f0f266
+2	290	7507058024508689	CMakeFiles/MyStuff.dir/ThinkingInC++/1-1.cpp.obj	e4e6c30f8cdd2d2c
+290	388	7507058025454928	MyStuff.exe	c5cdce59a9f0f266
