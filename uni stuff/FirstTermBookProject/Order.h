@@ -13,6 +13,7 @@ using namespace std;
 class Order {
 private:
     Distributor distributor;
+    //vector that will hold the ordered textbooks
     vector<Textbook> textbooks;
 
 public:
@@ -39,6 +40,20 @@ public:
         // Correct precision setting
         cout << "Total cost: " << fixed << setprecision(2) << totalCost << " BGN" << endl;
     }
+    friend ostream& operator<<(ostream& os, const Order& order) {
+        os << "Order\n";
+        os << "Distributor: " << order.distributor.getName() << "\n";
+        os << "Textbooks:\n";
+        for (const auto& tb : order.textbooks) {
+            os << "  - " << tb.getTitle() << "\n"
+            << "Author: " << tb.getAuthor() << "\n"
+            << "ISBN: " << tb.getIsbn() << "\n"
+            <<", Copies: " << tb.getCopies() << "\n";
+        }
+        os << "---\n"; // Separator for orders
+        return os;
+    }
+
 };
 
 #endif //FIRSTTERMBOOKPROJECT_ORDER_H

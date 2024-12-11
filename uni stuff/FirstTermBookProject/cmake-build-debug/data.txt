@@ -1,10 +1,30 @@
 Textbook
-Title: title
-Author: author
+Title:    one
+Author:    one
 Edition: 1
-ISBN: 123-12121212
-Print Date: 2023-12-01
-Copies: 10
-Price per Copy: 19.99
-Approved: Yes
-Approval Date: 23-11-01
+ISBN:    12121212
+Print Date:    121212
+Copies: 6
+Price per Copy: 30.00
+Approved: No
+Approval Date:    N/A
+Distributor
+Name:    one
+Address:    one
+Phone:    one
+Order
+Distributor:    one
+Textbooks:
+  -    one
+Author:    one
+ISBN:    12121212
+, Copies: 1
+  -    one
+Author:    one
+ISBN:    12121212
+, Copies: 1
+  -    one
+Author:    one
+ISBN:    12121212
+, Copies: 2
+---

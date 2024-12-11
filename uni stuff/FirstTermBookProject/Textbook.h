@@ -31,6 +31,10 @@ public:
         Textbook::title = title;
     }
 
+    const string &getTitle() const {
+        return title;
+    }
+
     const string &getAuthor() const {
         return author;
     }
