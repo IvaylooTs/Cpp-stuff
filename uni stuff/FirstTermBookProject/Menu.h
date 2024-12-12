@@ -188,12 +188,13 @@ void menu() {
                 orders.push_back(order);
 
                 // Save the updated textbooks, distributors, and orders back to the file
-                ofstream outFile("data.txt", ios::trunc); // Overwrite the file with updated data
+                ofstream outFile("data.txt", ios::app); // Overwrite the file with updated data
                 if (!outFile) {
                     cout << "Error: Could not open file for saving updates.\n";
                 } else {
                     //const auto& ensures that each  object is accessed as a reference, without making a copy,
                     //and the const ensures that the object isn't modified during iteration.
+                    outFile << "-----------UPDATE-----------\n";
                     // Save textbooks
                     for (const auto& tb : textbooks) {
                         if (tb.getCopies() > 0) {
@@ -212,25 +213,31 @@ void menu() {
                     }
 
                     outFile.close();
-                    cout << "Data updated in the file after placing the order.\n";
+
                 }
 
                 order.printOrder();
+                cout << "Data updated in the file after placing the order.\n";
                 break;
             }
             case 4: {
-                // When we use the option Save Data to File the file is oppened in append mode, so not to delete the previous info
+                // When we use the option Save Data to File the file is oppened in trunc mode, not to save dublicates to file
                 ofstream outFile("data.txt", ios::app);
                 if (!outFile.is_open()) {
                     cout << "Error: Could not open file for writing.\n";
                     break;
                 }
 
+                outFile << "-----------UPDATE-----------\n"; // Add update marker at the start of each update block
+
                 for (const auto& tb : textbooks) {
                     outFile << tb;
                 }
                 for (const auto& d : distributors) {
                     outFile << d;
+                }
+                for (const auto& o : orders) {
+                    outFile << o;
                 }
                 outFile.close();
                 cout << "Data saved to file.\n";
@@ -242,89 +249,117 @@ void menu() {
                     cout << "Error: Could not open file!\n";
                     break;
                 }
+                //stringstream can be used to read from or write to strings just like ifstream or ofstream read/write to files or the console.
+                //Here, buffer is a stringstream object that will be used to store the content from the file.
+                //So, inFile.rdbuf() returns the buffer associated with the inFile stream, which contains the content of the file.
+                //The line buffer << inFile.rdbuf(); essentially reads all the data from the file (via the stream buffer) and writes it into the stringstream (buffer).
+                //The function str() is a member of stringstream. It retrieves the content stored in the stringstream as a string.
+                //After writing the entire content of the file into buffer using buffer << inFile.rdbuf();, calling buffer.str() gives you the string representation of the entire content.
+                stringstream buffer;
+                buffer << inFile.rdbuf();
+                string logContent = buffer.str();
 
-                // We clear every vector before loading.
+                // Find the position of the last "-----------UPDATE-----------"
+                size_t lastUpdatePos = logContent.rfind("-----------UPDATE-----------"); //reverse find or in other words the last occurrence of ---update---
+
+                if (lastUpdatePos == string::npos) {
+                    cout << "No updates found in the log file.\n";
+                    inFile.close();
+                    return;
+                }
+                //lastUpdatePos: This variable holds the position (index) of the last occurrence of the string "-----------UPDATE-----------" within the logContent.
+                // It is determined by using rfind (reverse find),
+                // which finds the last occurrence of a substring. If "-----------UPDATE-----------" is found in the string, rfind will return the index where it begins.
+                // Get the content after the last "-----------UPDATE-----------"
+                string contentAfterLastUpdate = logContent.substr(lastUpdatePos + string("-----------UPDATE-----------").length());
+
+                // Use a stringstream to process the content after the last update
+                stringstream contentStream(contentAfterLastUpdate);
+                string type;
+
+                // Clear the vectors before loading new data
                 textbooks.clear();
                 distributors.clear();
-                orders.clear();
-
-                //Every instance of Textbook, Distributor or Order is saved with a title (corresponding to its class) before its information. This title will act as a delimiter
-                //when we itterate through the file. When we find a matching title, we load the information after it.
-                //The while loop ends on the EOF.
-                string type;
-                while (inFile >> type) {
+                //This condition attempts to read the next string from the contentStream and stores it in the type variable.
+                //The >> operator reads from the stream until it encounters whitespace (spaces, tabs, newlines) and assigns the value to type.
+                //Every instance of Textbook, Distributor is saved with a title (corresponding to its class) before its information. This title will act as a delimiter
+                //when we itterate through the stream. When we find a matching title, we load the information after it.
+                //The while loop ends on end of stream.
+                // Read and process the data from the content after the last update
+                while (contentStream >> type) {
                     if (type == "Textbook") {
                         string title, author, isbn, printDate, approvalDate;
                         int edition, copies;
                         bool approved;
                         double pricePerUnit;
 
-                        inFile.ignore();  // Ignore newline after the "Textbook" label
+                        contentStream.ignore();  // Ignore newline after the "Textbook" label
 
                         // Read and process the title
                         string line;
-                        getline(inFile, line);
+                        getline(contentStream, line);
                         title = getValueAfterLabel(line);
 
                         // Read and process the author
-                        getline(inFile, line);
+                        getline(contentStream, line);
                         author = getValueAfterLabel(line);
 
                         // Read edition
-                        getline(inFile, line);
+                        getline(contentStream, line);
                         edition = stoi(getValueAfterLabel(line));  // Convert the string after the label to an integer
 
                         // Read ISBN
-                        getline(inFile, line);
+                        getline(contentStream, line);
                         isbn = getValueAfterLabel(line);
 
                         // Read print date
-                        getline(inFile, line);
+                        getline(contentStream, line);
                         printDate = getValueAfterLabel(line);
 
                         // Read copies
-                        getline(inFile, line);
+                        getline(contentStream, line);
                         copies = stoi(getValueAfterLabel(line));  // Convert the string after the label to an integer
 
                         // Read price per unit
-                        getline(inFile, line);
+                        getline(contentStream, line);
                         pricePerUnit = stod(getValueAfterLabel(line));  // Convert the string after the label to a double
 
                         // Read approval status
-                        getline(inFile, line);
+                        getline(contentStream, line);
                         approved = (getValueAfterLabel(line) == "Yes");  // Convert "Yes" to true, anything else to false
 
                         // Read approval date
-                        getline(inFile, line);
+                        getline(contentStream, line);
                         approvalDate = getValueAfterLabel(line);
 
                         // Process and add the textbook to your list
-                         textbooks.emplace_back(title, author, edition, isbn, printDate, copies, approved, approvalDate, pricePerUnit);
+                        textbooks.emplace_back(title, author, edition, isbn, printDate, copies, approved, approvalDate, pricePerUnit);
 
                     } else if (type == "Distributor") {
                         string name, address, phone;
 
-                        inFile.ignore();  // Ignore newline after the "Distributor" label
+                        contentStream.ignore();  // Ignore newline after the "Distributor" label
 
                         // Read and process the distributor's name
                         string line;
-                        getline(inFile, line);
+                        getline(contentStream, line);
                         name = getValueAfterLabel(line);
 
                         // Read and process the distributor's address
-                        getline(inFile, line);
+                        getline(contentStream, line);
                         address = getValueAfterLabel(line);
 
                         // Read and process the distributor's phone number
-                        getline(inFile, line);
+                        getline(contentStream, line);
                         phone = getValueAfterLabel(line);
 
                         // Process and add the distributor to your list
-                         distributors.emplace_back(name, address, phone);
+                        distributors.emplace_back(name, address, phone);
                     }
                 }
+
                 inFile.close();
-                cout << "Data loaded from file.\n";
+                cout << "Data loaded from file after the last update.\n";
 
                 // Print loaded data to console
                 cout << "\n--- Loaded Textbooks ---\n";

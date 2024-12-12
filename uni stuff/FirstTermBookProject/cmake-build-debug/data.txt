@@ -1,30 +1,114 @@
+-----------UPDATE-----------
 Textbook
-Title:    one
-Author:    one
+Title: up
+Author: up
 Edition: 1
-ISBN:    12121212
-Print Date:    121212
-Copies: 6
-Price per Copy: 30.00
+ISBN: 1
+Print Date: 12
+Copies: 50
+Price per Copy: 10.00
+Approved: No
+Approval Date: N/A
+Distributor
+Name: asd
+Address: asd
+Phone: asd
+-----------UPDATE-----------
+Textbook
+Title:  up
+Author:  up
+Edition: 1
+ISBN:  1
+Print Date:  12
+Copies: 40
+Price per Copy: 10.00
+Approved: No
+Approval Date:  N/A
+Distributor
+Name:  asd
+Address:  asd
+Phone:  asd
+Order
+Distributor:  asd
+Textbooks:
+  -  up
+Author:  up
+ISBN:  1
+, Copies: 10
+---
+-----------UPDATE-----------
+Textbook
+Title:   up
+Author:   up
+Edition: 1
+ISBN:   1
+Print Date:   12
+Copies: 30
+Price per Copy: 10.00
+Approved: No
+Approval Date:   N/A
+Distributor
+Name:   asd
+Address:   asd
+Phone:   asd
+Order
+Distributor:   asd
+Textbooks:
+  -   up
+Author:   up
+ISBN:   1
+, Copies: 10
+Total cost: 0.00 BGN
+--------------
+-----------UPDATE-----------
+Textbook
+Title:    up
+Author:    up
+Edition: 1
+ISBN:    1
+Print Date:    12
+Copies: 28
+Price per Copy: 10.00
 Approved: No
 Approval Date:    N/A
 Distributor
-Name:    one
-Address:    one
-Phone:    one
+Name:    asd
+Address:    asd
+Phone:    asd
 Order
-Distributor:    one
+Distributor:    asd
 Textbooks:
-  -    one
-Author:    one
-ISBN:    12121212
-, Copies: 1
-  -    one
-Author:    one
-ISBN:    12121212
-, Copies: 1
-  -    one
-Author:    one
-ISBN:    12121212
+  -    up
+Author:    up
+ISBN:    1
 , Copies: 2
----
+Total cost: 20.00 BGN
+--------------
+-----------UPDATE-----------
+Textbook
+Title:     up
+Author:     up
+Edition: 1
+ISBN:     1
+Print Date:     12
+Copies: 26
+Price per Copy: 10.00
+Approved: No
+Approval Date:     N/A
+Distributor
+Name:     asd
+Address:     asd
+Phone:     asd
+Distributor
+Name: two
+Address: two
+Phone: two
+Order
+Distributor: two
+Textbooks:
+  -     up
+Author:     up
+ISBN:     1
+, Copies: 2
+Total cost: 20.00 BGN
+--------------

@@ -98,6 +98,14 @@ public:
     void setPricePerCopy(double pricePerCopy) {
         Textbook::pricePerCopy = pricePerCopy;
     }
+    //ostream& out:
+    //Passes the ostream object (std::cout, std::ofstream, etc.) by reference.
+    //Ensures efficient operation and state preservation.
+    //const Textbook& t:
+    //Passes the Textbook object by constant reference.
+    //Prevents unnecessary copying of the Textbook object while ensuring it is not modified inside the function.
+    //friend:
+    //Declares the function as a friend of the Textbook class, allowing it to access private or protected members (like t.title) directly.
 
     friend ostream& operator<<(ostream& out, const Textbook& t) {
         out << "Textbook" << "\n"

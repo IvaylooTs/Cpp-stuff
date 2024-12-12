@@ -16,6 +16,7 @@ private:
     //vector that will hold the ordered textbooks
     vector<Textbook> textbooks;
 
+
 public:
     // Constructor that accepts a Distributor
     Order(Distributor d) : distributor(d) {}
@@ -31,13 +32,12 @@ public:
         cout << "Order for distributor: " << distributor.getName() << endl;
         cout << "Distributor Address: " << distributor.getAddress() << ", Phone: " << distributor.getPhone() << endl;
 
-        double totalCost = 0.0;
+        double totalCost = 0.0; // Reset totalCost to 0 at the beginning of printOrder() to avoid cumulative total
         for (const auto& tb : textbooks) {
             cout << tb << endl;
             totalCost += tb.getCopies() * tb.getPricePerCopy();
         }
 
-        // Correct precision setting
         cout << "Total cost: " << fixed << setprecision(2) << totalCost << " BGN" << endl;
     }
     friend ostream& operator<<(ostream& os, const Order& order) {
@@ -45,12 +45,15 @@ public:
         os << "Distributor: " << order.distributor.getName() << "\n";
         os << "Textbooks:\n";
         for (const auto& tb : order.textbooks) {
-            os << "  - " << tb.getTitle() << "\n"
+            os << "Title: " << tb.getTitle() << "\n"
             << "Author: " << tb.getAuthor() << "\n"
             << "ISBN: " << tb.getIsbn() << "\n"
-            <<", Copies: " << tb.getCopies() << "\n";
+            << "Copies: " << tb.getCopies() << "\n"
+            << "Total cost: " << fixed << setprecision(2) << tb.getCopies() * tb.getPricePerCopy() << " BGN" << endl;
+            // getcopies and getpricepercopy will work because when we create an order we create a new instance with type Order which we save in the file.
+            // So when we enter how many copies we want it multiplies it by the price of the original instance and correct price is calculated.
         }
-        os << "---\n"; // Separator for orders
+        os << "--------------\n"; // Separator for orders
         return os;
     }
 
